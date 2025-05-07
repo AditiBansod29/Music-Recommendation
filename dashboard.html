@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Recommender Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Welcome to Music Recommender!</h2>
+            <div id="userWelcome"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Check if user is logged in
+        if (!currentUser) window.location.href = 'index.html';
+        
+        document.getElementById('userWelcome').textContent = `Welcome, ${currentUser.username}!`;
+    </script>
+</body>
+</html>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>🎵 Music Recommender</h1>
+        <div class="current-user">Welcome, <span id="username"></span>!</div>
+    </div>
+    
+    <nav class="dashboard-nav">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Discover</a>
+        <a href="#" class="nav-link">Playlists</a>
+        <a href="#" class="nav-link">Liked Songs</a>
+    </nav>
+    
+    <div class="main-content">
+        <aside class="sidebar">
+            <h3>Your Genres</h3>
+            <div class="genre-tags">
+                <span class="genre-tag">Pop</span>
+                <span class="genre-tag">Rock</span>
+                <span class="genre-tag">Jazz</span>
+                <!-- Add more genres -->
+            </div>
+        </aside>
+        
+        <main class="recommendation-grid">
+            <!-- Repeat this card for each recommendation -->
+            <div class="song-card">
+                <div class="song-artwork"></div>
+                <div class="song-info">
+                    <h4 class="song-title">Song Title</h4>
+                    <p class="song-artist">Artist Name</p>
+                    <button class="play-button">▶ Play</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="music-player">
+        <div class="current-song">
+            <div class="album-art"></div>
+            <div>
+                <h4>Now Playing</h4>
+                <p>Song Title - Artist</p>
+            </div>
+        </div>
+        
+        <div class="player-controls">
+            <button class="control-button">⏮</button>
+            <button class="control-button">▶</button>
+            <button class="control-button">⏭</button>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+
+<!-- Rest of your content -->
+<div class="content">
+    <h2>Recommender</h2>
+    <div class="nav-links">
+        <a href="#">Playlists</a>
+        <a href="#">Liked Songs</a>
+    </div>
+</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Recommender Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 id="moodHeading">Music Recommender</h1>
+            <div class="header-controls">
+                <span class="username">Welcome, <span id="dashboardUsername"></span>!</span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="recommendation-grid" id="recommendations">
+                <!-- Recommendations will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Get current user and mood
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const selectedMood = localStorage.getItem('selectedMood') || 'general';
+        
+        // Mood-based recommendations data
+        const recommendations = {
+            happy: [
+                { title: "Dancing Queen", artist: "ABBA", genre: "Disco" },
+                { title: "Happy", artist: "Pharrell Williams", genre: "Pop" },
+                { title: "Uptown Funk", artist: "Mark Ronson", genre: "Funk" }
+            ],
+            sad: [
+                { title: "Someone Like You", artist: "Adele", genre: "Ballad" },
+                { title: "Hurt", artist: "Johnny Cash", genre: "Country" },
+                { title: "Nothing Compares 2 U", artist: "Sinéad O'Connor", genre: "Pop" }
+            ],
+            relaxed: [
+                { title: "Weightless", artist: "Marconi Union", genre: "Ambient" },
+                { title: "Clair de Lune", artist: "Claude Debussy", genre: "Classical" },
+                { title: "Blue in Green", artist: "Miles Davis", genre: "Jazz" }
+            ],
+            general: [
+                { title: "Bohemian Rhapsody", artist: "Queen", genre: "Rock" },
+                { title: "Shape of You", artist: "Ed Sheeran", genre: "Pop" },
+                { title: "Blinding Lights", artist: "The Weeknd", genre: "Electropop" }
+            ]
+        };
+
+        // Update dashboard content
+        document.getElementById('dashboardUsername').textContent = currentUser.username;
+        document.getElementById('moodHeading').textContent = `${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)} Recommendations`;
+
+        // Generate recommendations
+        const recommendationsGrid = document.getElementById('recommendations');
+        recommendations[selectedMood].forEach(song => {
+            recommendationsGrid.innerHTML += `
+                <div class="song-card">
+                    <div class="song-artwork" style="background: #${Math.floor(Math.random()*16777215).toString(16)}">
+                        <span class="genre-tag">${song.genre}</span>
+                    </div>
+                    <div class="song-info">
+                        <h4 class="song-title">${song.title}</h4>
+                        <p class="song-artist">${song.artist}</p>
+                        <button class="play-button">▶ Play</button>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
